@@ -1,28 +1,15 @@
-2023-05-31 21:22:32 Traceback (most recent call last):
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 299, in disconnect
-2023-05-31 21:22:32     self.close_secure_channel()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 343, in close_secure_channel
-2023-05-31 21:22:32     return self.uaclient.close_secure_channel()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 282, in close_secure_channel
-2023-05-31 21:22:32     return self._uasocket.close_secure_channel()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 223, in close_secure_channel
-2023-05-31 21:22:32     future = self._send_request(request, message_type=ua.MessageType.SecureClose)
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 72, in _send_request
-2023-05-31 21:22:32     self._socket.write(msg)
-2023-05-31 21:22:32 AttributeError: 'NoneType' object has no attribute 'write'
-2023-05-31 21:22:32 
-2023-05-31 21:22:32 During handling of the above exception, another exception occurred:
-2023-05-31 21:22:32 
-2023-05-31 21:22:32 Traceback (most recent call last):
-2023-05-31 21:22:32   File "/app/opcrust.py", line 45, in <module>
-2023-05-31 21:22:32     client.disconnect()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 301, in disconnect
-2023-05-31 21:22:32     self.disconnect_socket()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 310, in disconnect_socket
-2023-05-31 21:22:32     self.uaclient.disconnect_socket()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 269, in disconnect_socket
-2023-05-31 21:22:32     return self._uasocket.disconnect_socket()
-2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 167, in disconnect_socket
-2023-05-31 21:22:32     self._socket.socket.shutdown(socket.SHUT_RDWR)
-2023-05-31 21:22:32 AttributeError: 'NoneType' object has no attribute 'socket'
-2023-05-31 21:22:32 Error: [Errno 99] Cannot assign requested address
+2023-05-31 21:25:11 ServiceFault from server received while waiting for publish response
+2023-05-31 21:25:11 exception calling callback for <Future at 0x7f5c5d2f2100 state=finished returned Buffer>
+2023-05-31 21:25:11 Traceback (most recent call last):
+2023-05-31 21:25:11   File "/usr/local/lib/python3.9/concurrent/futures/_base.py", line 330, in _invoke_callbacks
+2023-05-31 21:25:11     callback(self)
+2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 493, in _call_publish_callback
+2023-05-31 21:25:11     self._uasocket.check_answer(data, "while waiting for publish response")
+2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 93, in check_answer
+2023-05-31 21:25:11     hdr.ServiceResult.check()
+2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/ua/uatypes.py", line 218, in check
+2023-05-31 21:25:11     raise UaStatusCodeError(self.value)
+2023-05-31 21:25:11 opcua.ua.uaerrors._auto.BadSessionClosed: "The session was closed by the client."(BadSessionClosed)
+2023-05-31 21:25:11 Client connected
+2023-05-31 21:25:11 Error: name 'NodeId' is not defined
+2023-05-31 21:25:11 Client disconnected
