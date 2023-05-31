@@ -1,0 +1,28 @@
+2023-05-31 21:22:32 Traceback (most recent call last):
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 299, in disconnect
+2023-05-31 21:22:32     self.close_secure_channel()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 343, in close_secure_channel
+2023-05-31 21:22:32     return self.uaclient.close_secure_channel()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 282, in close_secure_channel
+2023-05-31 21:22:32     return self._uasocket.close_secure_channel()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 223, in close_secure_channel
+2023-05-31 21:22:32     future = self._send_request(request, message_type=ua.MessageType.SecureClose)
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 72, in _send_request
+2023-05-31 21:22:32     self._socket.write(msg)
+2023-05-31 21:22:32 AttributeError: 'NoneType' object has no attribute 'write'
+2023-05-31 21:22:32 
+2023-05-31 21:22:32 During handling of the above exception, another exception occurred:
+2023-05-31 21:22:32 
+2023-05-31 21:22:32 Traceback (most recent call last):
+2023-05-31 21:22:32   File "/app/opcrust.py", line 45, in <module>
+2023-05-31 21:22:32     client.disconnect()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 301, in disconnect
+2023-05-31 21:22:32     self.disconnect_socket()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/client.py", line 310, in disconnect_socket
+2023-05-31 21:22:32     self.uaclient.disconnect_socket()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 269, in disconnect_socket
+2023-05-31 21:22:32     return self._uasocket.disconnect_socket()
+2023-05-31 21:22:32   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 167, in disconnect_socket
+2023-05-31 21:22:32     self._socket.socket.shutdown(socket.SHUT_RDWR)
+2023-05-31 21:22:32 AttributeError: 'NoneType' object has no attribute 'socket'
+2023-05-31 21:22:32 Error: [Errno 99] Cannot assign requested address
