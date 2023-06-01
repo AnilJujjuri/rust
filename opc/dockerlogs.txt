@@ -1,15 +1,71 @@
-2023-05-31 21:25:11 ServiceFault from server received while waiting for publish response
-2023-05-31 21:25:11 exception calling callback for <Future at 0x7f5c5d2f2100 state=finished returned Buffer>
-2023-05-31 21:25:11 Traceback (most recent call last):
-2023-05-31 21:25:11   File "/usr/local/lib/python3.9/concurrent/futures/_base.py", line 330, in _invoke_callbacks
-2023-05-31 21:25:11     callback(self)
-2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 493, in _call_publish_callback
-2023-05-31 21:25:11     self._uasocket.check_answer(data, "while waiting for publish response")
-2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/client/ua_client.py", line 93, in check_answer
-2023-05-31 21:25:11     hdr.ServiceResult.check()
-2023-05-31 21:25:11   File "/usr/local/lib/python3.9/site-packages/opcua/ua/uatypes.py", line 218, in check
-2023-05-31 21:25:11     raise UaStatusCodeError(self.value)
-2023-05-31 21:25:11 opcua.ua.uaerrors._auto.BadSessionClosed: "The session was closed by the client."(BadSessionClosed)
-2023-05-31 21:25:11 Client connected
-2023-05-31 21:25:11 Error: name 'NodeId' is not defined
-2023-05-31 21:25:11 Client disconnected
+from opcua import Client, ua
+from opcua.ua import NodeId
+
+ 
+
+
+def subscribe_to_values(changed_monitored_items):
+    print("Data change from server:")
+    for item in changed_monitored_items:
+        node_id = item.NodeId
+        data_value = item.Value.Value
+        print(f"Item {node_id}, Value = {data_value}")
+
+ 
+
+
+if __name__ == '__main__':
+    client = Client("opc.tcp://MYTSL02946.lnties.com:53530/OPCUA/SimulationServer")
+    try:
+        client.connect()
+        print("Client connected")
+
+ 
+
+        # Create a subscription
+        subscription = client.create_subscription(2000, ua.SubscriptionDiagnosticsDataType())
+
+ 
+
+        # Create some monitored items
+        items_to_create = [ua.ReadValueId(NodeId(3, 1003), ua.AttributeIds.Value, None, None),
+                           ua.ReadValueId(NodeId(3, 1008), ua.AttributeIds.Value, None, None),
+                           ua.ReadValueId(NodeId(3, 1009), ua.AttributeIds.Value, None, None),
+                           ua.ReadValueId(NodeId(3, 1010), ua.AttributeIds.Value, None, None)]
+        client.create_monitored_items(subscription, items_to_create)
+
+ 
+
+        # Write a value to a node
+        node_id = ua.NodeId(3, 1012)
+        value = ua.Variant(20, ua.VariantType.Int32)
+        client.write_attribute_value(node_id, ua.AttributeIds.Value, value)
+        print("Value written successfully")
+
+ 
+
+        # Subscribe to data change notifications
+        subscription.subscribe_data_change(subscribe_to_values)
+
+ 
+
+        # Keep the script running to receive data change notifications
+        while True:
+            pass
+
+ 
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+ 
+
+    finally:
+        client.disconnect()
+        print("Client disconnected")
+        
+        
+ ServiceFault from server received while waiting for publish response
+Client connected
+Error: __init__() takes 1 positional argument but 5 were given
+Client disconnected
