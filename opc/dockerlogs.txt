@@ -53,7 +53,6 @@ if __name__ == '__main__':
         while True:
             pass
 
- 
 
     except Exception as e:
         print(f"Error: {e}")
@@ -68,4 +67,4 @@ if __name__ == '__main__':
  ServiceFault from server received while waiting for publish response
 Client connected
 Error: __init__() takes 1 positional argument but 5 were given
-Client disconnected
+Client disconnected 
